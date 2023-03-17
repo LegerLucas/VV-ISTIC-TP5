@@ -12,4 +12,4 @@ Include in this document the code of the test and, if you did it, the link to th
 
 ## Answer
 
-
+Si on mets lien nul, l'utilisateur va directement être dirifer vers la dernière étape de Simba Organizer sans passer par les étapes précédentes.

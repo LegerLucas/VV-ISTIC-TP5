@@ -12,3 +12,40 @@ The process is as follows:
 Include the code of the walker and the snapshot in this document.
 
 ## Answer
+
+```java
+import java.io.File;
+import java.util.List;
+import java.util.Random;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.io.FileHandler;
+
+public class WikipediaWalker {
+    public static void main(String[] args) {
+        System.setProperty("webdriver.gecko.driver", "/chemin/vers/geckodriver");
+        WebDriver driver = new FirefoxDriver();
+        driver.get("https://www.wikipedia.org/");
+
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            List<WebElement> links = driver.findElements(By.cssSelector("#mp-topbanner a"));
+            WebElement randomLink = links.get(random.nextInt(links.size()));
+
+            randomLink.click();
+
+            File screenshot = ((FirefoxDriver) driver).getScreenshotAs(OutputType.FILE);
+            String filename = "capture" + (i + 1) + ".png";
+            try {
+                FileHandler.copy(screenshot, new File(filename));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    driver.quit();
+}
+```
